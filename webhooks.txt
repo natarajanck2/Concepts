@@ -1,0 +1,112 @@
+A webhook is a mechanism that allows one application to send real-time data or notifications to another application. It works on the principle of "event-driven" communication. When a specific event occurs in the source application, the webhook sends an HTTP POST request to a preconfigured URL (the target application).
+
+Webhooks are commonly used to automate processes and integrate systems.
+
+Real-Life Example: The Coffee Shop and Delivery Service
+Imagine Kavin owns a coffee shop that also offers delivery. Here's how a webhook conceptually applies:
+
+Kavin partners with a delivery company to handle coffee deliveries.
+
+Whenever an online order is placed (the event), Kavin’s system notifies the delivery company (sends a webhook).
+
+The delivery company receives the order details (via the HTTP POST request) and processes the delivery.
+
+In this analogy:
+
+The Coffee Shop System: Acts as the source application triggering the webhook.
+
+The Delivery Company System: Is the target application receiving the webhook and performing an action.
+
+How Webhooks Work
+Event Occurs: An action like "new order placed," "new comment added," or "repository updated" happens.
+
+Webhook Trigger: The source application triggers a webhook configured for the event.
+
+POST Request Sent: The webhook sends an HTTP POST request to a specified URL with data about the event.
+
+Target Application Action: The receiving application processes the data and performs an action.
+
+Implementing Webhooks in Git
+In the context of Git, webhooks are used to trigger actions in response to repository events like pushes, pull requests, or branch deletions.
+
+How to Implement a Webhook in Git
+Setup in GitHub/GitLab/Bitbucket:
+
+Navigate to your repository settings.
+
+Go to the Webhooks section.
+
+Click on Add Webhook.
+
+Provide a payload URL (the target application's URL where the data should be sent).
+
+Select the events you want to trigger the webhook (e.g., push events, pull requests).
+
+Target Application:
+
+Create an endpoint (e.g., /webhook) on your server to receive and handle the webhook payload.
+
+Example in Node.js:
+
+javascript
+Copy
+Edit
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/webhook', (req, res) => {
+  console.log('Webhook payload:', req.body);
+  res.status(200).send('Webhook received!');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+The endpoint processes the incoming data and takes appropriate action (e.g., trigger a CI/CD pipeline).
+
+Real-Life Example of Git Webhooks
+Scenario: Automated Deployment
+Kavin’s development team uses GitHub to manage their project. Whenever a new code change is pushed to the main branch:
+
+A webhook is triggered to notify the CI/CD pipeline.
+
+The pipeline runs tests, builds the application, and deploys it to the staging server.
+
+This automation ensures that every code update is tested and deployed without manual intervention.
+
+Webhooks in Applications
+E-Commerce Example:
+
+Scenario: A customer places an order.
+
+Webhook Trigger: The e-commerce platform sends a webhook to the payment gateway with order details.
+
+Action: The payment gateway processes the payment and sends a confirmation.
+
+Slack Integration:
+
+Scenario: A repository receives a new pull request.
+
+Webhook Trigger: GitHub sends a webhook to Slack.
+
+Action: Slack posts a notification in a designated channel with the pull request details.
+
+Customer Support:
+
+Scenario: A new ticket is raised in a support system.
+
+Webhook Trigger: The support system sends a webhook to a CRM tool.
+
+Action: The CRM creates a new customer record and links it to the ticket.
+
+Why Use Webhooks?
+Real-Time Updates: Enables instant notifications instead of relying on periodic polling.
+
+Automation: Simplifies workflows by automating tasks across systems.
+
+Scalability: Reduces server load by sending data only when an event occurs.
+
+Conclusion
+Webhooks are a powerful tool for integrating applications and automating workflows. Whether you're using them to trigger CI/CD pipelines in Git, send Slack notifications, or automate order processing, webhooks simplify communication between systems. By understanding their core principles and real-world applications, you can leverage webhooks to build efficient and responsive systems.
